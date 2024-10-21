@@ -1,0 +1,297 @@
+openapi: 3.0.0
+info:
+  title: OTM Manager API # Changed from enterprise-manager-api
+  description: OTM Manager API for managing enterprise resources # Changed from Enterprise Manager API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/ # Changed from localhost:8001
+    description: Local server
+  - url: https://otm-main-production.up.railway.app/ # Changed from development server
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    JwtHeader:
+      name: Authorization
+      in: header
+      schema:
+        type: string
+        example: Bearer {{JwtToken}}
+      required: true
+  schemas:
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+        role:
+          type: string
+        message:
+          type: string
+        user:
+          type: object
+        refreshToken:
+          type: string
+      required:
+        - token
+        - role
+        - message
+        - user
+    Success:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - Success
+        message:
+          type: string
+        data:
+          type: object
+      required:
+        - message
+        - status
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - Failure
+        message:
+          type: string
+        data:
+          type: object
+        errorType:
+          type: string
+          default: INTERNAL_SERVER_ERROR
+      required:
+        - status
+        - message
+        - errorType
+  responses:
+    400:
+      description: BadRequest
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/Error'
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: Invalid values in request.
+              errorType:
+                type: string
+                default: BAD_REQUEST
+    401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/Error'
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: Unauthorized Access
+              errorType:
+                type: string
+                default: UNAUTHORIZED
+    403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/Error'
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: User don't have permission to access this resource
+              errorType:
+                type: string
+                default: FORBIDDEN
+    404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/Error'
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: Resource not found
+              errorType:
+                type: string
+                default: RESOURCE_NOT_FOUND
+    409:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/Error'
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: Resource already exists
+              errorType:
+                type: string
+                default: RESOURCE_ALREADY_EXISTS
+    500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/Error'
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: Something went wrong while processing your request
+              errorType:
+                type: string
+                default: INTERNAL_SERVER_ERROR
+
+paths:
+  /api/auth/login:
+    post:
+      summary: Login
+      tags:
+        - Authentication
+      description: Login using email and password to obtain JWT tokens. Also sets the refreshToken as a session cookie.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  default: test@testcompany.com
+                password:
+                  type: string
+                  default: test-user
+      responses:
+        '200':
+          description: Success-Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: Success
+                  message:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        default: jwt
+                      role:
+                        type: string
+                        default: Support
+                      message:
+                        type: string
+                        default: Successfully logged in
+                      user:
+                        type: string
+                        default: user@user.com
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /api/auth/signup:
+    post:
+      summary: Signup
+      tags:
+        - Authentication
+      description: Signup using email and password to create a new account and obtain JWT tokens. Also sets the refreshToken as a session cookie.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  default: tenant@testcompany.com
+                name:
+                  type: string
+                  default: test-user
+                password:
+                  type: string
+                  default: test-tenant
+      responses:
+        '200':
+          description: Success-Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: Success
+                  message:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        default: jwt
+                      role:
+                        type: string
+                        default: Support
+                      message:
+                        type: string
+                        default: Signup successful
+                      user:
+                        type: string
+                        default: user@user.com
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+
