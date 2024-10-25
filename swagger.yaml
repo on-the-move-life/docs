@@ -295,3 +295,125 @@ paths:
         '500':
           $ref: '#/components/responses/500'
 
+  /workout/aerobic:
+    get:
+      summary: Get aerobic workout details
+      description: Retrieve a list of aerobic workouts and available equipment
+      tags:
+        - Workout
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      workoutsDetails:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            title:
+                              type: string
+                            minRounds:
+                              type: integer
+                            maxRounds:
+                              type: integer
+                            time:
+                              type: string
+                            notes:
+                              type: array
+                              items:
+                                type: string
+                      movement:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            title:
+                              type: string
+                            options:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  type:
+                                    type: string
+                                  gif:
+                                    type: string
+                            gif:
+                              type: string
+                  success:
+                    type: boolean
+              example:
+                msg:
+                  title: "Aerobic Workouts"
+                  workoutsDetails:
+                    - id: "version_1"
+                      title: "Cardio Intervals"
+                      minRounds: 3
+                      maxRounds: 5
+                      time: "5 mins"
+                      notes:
+                        - "2 min rest or walk after each round"
+                    - id: "version_2"
+                      title: "Steady state zone 2 cardio"
+                      time: "20 mins"
+                      notes:
+                        - "Choose 1 machine for the given time"
+                    - id: "version_3"
+                      title: "Sprint work"
+                      notes:
+                        - "10-30 sec work Max effort"
+                        - "3 mins rest or walk"
+                  movement:
+                    - id: "bike"
+                      title: "Bike"
+                      options:
+                        - type: "assault bike"
+                          gif: "https://i.gifer.com/OyUN.gif"
+                        - type: "stationary bike"
+                          gif: "https://i.gifer.com/OyUN.gif"
+                        - type: "concept 2 bike"
+                          gif: "https://i.gifer.com/OyUN.gif"
+                    - id: "row"
+                      title: "Row"
+                      options:
+                        - type: "concept 2 rower"
+                          gif: "https://i.gifer.com/OyUN.gif"
+                        - type: "anu other rower"
+                          gif: "https://i.gifer.com/OyUN.gif"
+                    - id: "elliptical"
+                      title: "Elliptical"
+                      gif: "https://i.gifer.com/OyUN.gif"
+                    - id: "ski erg"
+                      title: "Ski Erg"
+                      gif: "https://i.gifer.com/OyUN.gif"
+                    - id: "runner "
+                      title: "Runner"
+                      options:
+                        - type: "treadmill"
+                          gif: "https://i.gifer.com/OyUN.gif"
+                        - type: "curved treadmill"
+                          gif: "https://i.gifer.com/OyUN.gif"
+                success: true
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
