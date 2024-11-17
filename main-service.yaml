@@ -520,4 +520,291 @@ paths:
         '500':
           $ref: '#/components/responses/500'
 
+  /insights/weekly-activity-list:
+    get:
+      summary: Get Weekly Activity List
+      description: Returns a list of activities for the given member code.
+      parameters:
+        - name: memberCode
+          in: query
+          required: true
+          schema:
+            type: string
+          example: PRAN
+      responses:
+        '200':
+          description: List of weekly activities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                          example: 2024-11-11
+                        activities:
+                          type: array
+                          items:
+                            type: string
 
+  /lifestyle:
+    get:
+      summary: Get Lifestyle Details
+      description: Fetches the lifestyle details of a user.
+      parameters:
+        - name: user
+          in: query
+          required: true
+          schema:
+            type: string
+          example: PRAN
+      responses:
+        '200':
+          description: Lifestyle details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  lifeStyleDetails:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      memberCode:
+                        type: string
+                      circles:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            tasks:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  time:
+                                    type: string
+                                    nullable: true
+                                  name:
+                                    type: string
+                                  taskId:
+                                    type: string
+                                  details:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        description:
+                                          type: string
+                                        time:
+                                          type: string
+                                          nullable: true
+                                        duration:
+                                          type: string
+                                          nullable: true
+
+  /weekly-checkin:
+    get:
+      summary: Get Weekly Check-in
+      description: Retrieves weekly check-in data for a specific member.
+      parameters:
+        - name: memberCode
+          in: query
+          required: true
+          schema:
+            type: string
+          example: PRAN
+      responses:
+        '200':
+          description: Weekly check-in data
+          content:
+           
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      memberCode:
+                        type: string
+                      week:
+                        type: string
+                      checkin:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            date:
+                              type: string
+                              format: date
+                              example: 2024-11-11
+                            status:
+                              type: string
+                            details:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  question:
+                                    type: string
+                                  answer:
+                                    type: string
+                                  comment:
+                                    type: string
+                                  status:
+                                    type: string
+                                  date:
+                                    type: string
+                                    format: date
+                                    example: 2024-11-11 
+
+  /client/profile/coach-tools:
+    get:
+      summary: Get coach tools profile
+      description: Fetches the profile data of a coach member using the provided member code.
+      parameters:
+        - in: query
+          name: memberCode
+          required: true
+          schema:
+            type: string
+          description: The unique code for the member
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Pranav Yadav
+                      code:
+                        type: string
+                        example: PRAN
+                      email:
+                        type: string
+                        example: pranavyadav996@gmail.com
+                      profilePicture:
+                        type: string
+                        example: "https://storage.googleapis.com/otm_client_profile_pictures/PRAN_Pranav_Yadav_2969.jpg"
+                      # Other fields omitted for brevity
+
+  /insights/weekly-active-memberships:
+    get:
+      summary: Get weekly active memberships
+      description: Returns the count of active memberships for each week.
+      responses:
+        '200':
+          description: List of weekly active memberships
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        week:
+                          type: string
+                          example: 20Feb-26Feb-2023
+                        count:
+                          type: integer
+                          example: 0
+
+  /insights/weekly-active-clients:
+    get:
+      summary: Get weekly active clients
+      description: Returns the count of active clients for each week.
+      responses:
+        '200':
+          description: List of weekly active clients
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        week:
+                          type: string
+                          example: 20Feb-26Feb-2023
+                        count:
+                          type: integer
+                          example: 13
+
+  /workout:
+    get:
+      summary: Get workout summary
+      description: Returns a summary of workout data including color-coded client counts.
+      responses:
+        '200':
+          description: Workout summary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        week:
+                          type: string
+                          example: 20Feb-26Feb-2023
+                        greenClients:
+                          type: integer
+                          example: 7
+                        yellowClients:
+                          type: integer
+                          example: 3
+                        redClients:
+                          type: integer
+                          example: 3
+                        coachWiseClients:
+                          type: object
+                          example:
+                            Sanika:
+                              greenClients: 1
+                              yellowClients: 0
+                              redClients: 0
