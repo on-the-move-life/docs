@@ -1,0 +1,435 @@
+openapi: 3.0.0
+info:
+  title: OTM Insight API
+  description: API documentation for the OTM Insight service
+  version: 1.0.0
+servers:
+  - url: https://otm-insight-production.up.railway.app
+    description: Production server
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    JwtHeader:
+      name: Authorization
+      in: header
+      schema:
+        type: string
+        example: Bearer {{JwtToken}}
+      required: true
+  schemas:
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+        role:
+          type: string
+        message:
+          type: string
+        user:
+          type: object
+        refreshToken:
+          type: string
+      required:
+        - token
+        - role
+        - message
+        - user
+    Success:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - Success
+        message:
+          type: string
+        data:
+          type: object
+      required:
+        - message
+        - status
+    Error:
+  responses:
+    400:
+      description: BadRequest
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/Error"
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: Invalid values in request.
+              errorType:
+                type: string
+                default: BAD_REQUEST
+    401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/Error"
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: Unauthorized Access
+              errorType:
+                type: string
+                default: UNAUTHORIZED
+    403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/Error"
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: User don't have permission to access this resource
+              errorType:
+                type: string
+                default: FORBIDDEN
+    404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/Error"
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: Resource not found
+              errorType:
+                type: string
+                default: RESOURCE_NOT_FOUND
+    409:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/Error"
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: Resource already exists
+              errorType:
+                type: string
+                default: RESOURCE_ALREADY_EXISTS
+    500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/Error"
+            properties:
+              status:
+                type: string
+                default: Failure
+              message:
+                type: string
+                default: Something went wrong while processing your request
+              errorType:
+                type: string
+                default: INTERNAL_SERVER_ERROR
+
+paths:
+  /client/active:
+    get:
+      summary: Get active clients
+      description: Returns a list of active clients with their details.
+      responses:
+        "200":
+          description: A list of active clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: aaka
+                    email:
+                      type: string
+                      example: aaka@gmail.com
+                    code:
+                      type: string
+                      example: AA8684
+                    frequency:
+                      type: integer
+                      example: 4
+
+  /client/coachMember:
+    get:
+      summary: Get coach member details
+      description: Returns the details of a coach member based on the provided code.
+      parameters:
+        - in: query
+          name: code
+          required: true
+          schema:
+            type: string
+          description: The unique code for the coach member
+      responses:
+        "200":
+          description: Coach member details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: 6661b7137b40baa688852b8a
+                  name:
+                    type: string
+                    example: Pranav Yadav
+                  email:
+                    type: string
+                    example: pranavyadav996@gmail.com
+                  code:
+                    type: string
+                    example: PRAN
+                  frequency:
+                    type: integer
+                    example: 5
+                  isolationFocusIndex:
+                    type: integer
+                    example: 0
+                  metconFormatIndex:
+                    type: integer
+                    example: 1
+                  sectionLoopIndex:
+                    type: integer
+                    example: 0
+                  workoutThemeIndex:
+                    type: integer
+                    example: 2
+                  sections:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                    example:
+                      - ["MOB", "ACT", "GYM", "MR", "METCON", "CORE"]
+                  themeLoop:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - "Horizontal Pull"
+                      - "Horizontal Push"
+                      - "Squat"
+                      - "Vertical Push"
+                      - "Posterior Chain"
+                  equipment:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - ""
+                      - "Barbell"
+                      - "Kettlebell"
+                  metconDuration:
+                    type: string
+                    example: "12"
+                  questionnaireResponse:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: su1
+                        answer:
+                          type: array
+                          items:
+                            type: string
+                          example: ["MALE"]
+                  addAssessmentToday:
+                    type: integer
+                    example: 1
+                  lastSeenUiVersion:
+                    type: string
+                    example: 1.1.1
+                  showLifestyle:
+                    type: boolean
+                    example: true
+                  password:
+                    type: string
+                    example: $2b$05$OZ9vHHJuRyqbhXuJxyJStulRgerUNY79qgTEhJHe9OlD4pxrgsMqS
+                  moveCoins:
+                    type: integer
+                    example: 21310
+                  format:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        sectionCode:
+                          type: string
+                          example: HYP
+                        rounds:
+                          type: string
+                          example: 2 Rounds
+                        mvmtCount:
+                          type: integer
+                          example: 4
+                  blackListedTags:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - jumping
+                  movement_count:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: M_ATW
+                        count:
+                          type: integer
+                          example: 57
+                  isMealPlanAvailable:
+                    type: boolean
+                    example: true
+                  coach:
+                    type: string
+                    example: Pushpak
+                  mvmtLevelTags:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - advanced
+                  profilePicture:
+                    type: string
+                    example: https://storage.googleapis.com/otm_client_profile_pictures/PRAN_Pranav_Yadav_2969.jpg
+                  workoutSplit:
+                    type: integer
+                    example: 3
+                  skills:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        theme:
+                          type: string
+                          example: Horizontal Pull
+                        rpe:
+                          type: string
+                          example: ""
+                        level:
+                          type: integer
+                          example: 5
+                        reps:
+                          type: integer
+                          example: 5
+
+    put:
+      summary: Update coach member details
+      description: Updates the details of a coach member with the provided data.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: PRAN
+                format:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      sectionCode:
+                        type: string
+                        example: HYP
+                      rounds:
+                        type: string
+                        example: 2 Rounds
+                      mvmtCount:
+                        type: integer
+                        example: 4
+                equipment:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - ""
+                    - "Barbell"
+                    - "Kettlebell"
+                metconDuration:
+                  type: string
+                  example: "12"
+                section:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - MOB
+                    - ACT
+                    - GYM
+                blackListedTag:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - jumping
+                    - hinging
+                mvmtLevelTag:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - advanced
+                    - intermediate
+                workoutSplit:
+                  type: integer
+                  example: 4
+      responses:
+        "200":
+          description: Successful update
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
