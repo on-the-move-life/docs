@@ -82,7 +82,7 @@ components:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/Error'
+              - $ref: "#/components/schemas/Error"
             properties:
               status:
                 type: string
@@ -99,7 +99,7 @@ components:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/Error'
+              - $ref: "#/components/schemas/Error"
             properties:
               status:
                 type: string
@@ -116,7 +116,7 @@ components:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/Error'
+              - $ref: "#/components/schemas/Error"
             properties:
               status:
                 type: string
@@ -133,7 +133,7 @@ components:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/Error'
+              - $ref: "#/components/schemas/Error"
             properties:
               status:
                 type: string
@@ -150,7 +150,7 @@ components:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/Error'
+              - $ref: "#/components/schemas/Error"
             properties:
               status:
                 type: string
@@ -167,7 +167,7 @@ components:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/Error'
+              - $ref: "#/components/schemas/Error"
             properties:
               status:
                 type: string
@@ -200,7 +200,7 @@ paths:
                   type: string
                   default: test-user
       responses:
-        '200':
+        "200":
           description: Success-Response
           content:
             application/json:
@@ -225,16 +225,16 @@ paths:
                       user:
                         type: string
                         default: user@user.com
-        '400':
-          $ref: '#/components/responses/400'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '500':
-          $ref: '#/components/responses/500'
+        "400":
+          $ref: "#/components/responses/400"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
 
   /api/auth/signup:
     post:
@@ -259,7 +259,7 @@ paths:
                   type: string
                   default: test-tenant
       responses:
-        '200':
+        "200":
           description: Success-Response
           content:
             application/json:
@@ -284,16 +284,58 @@ paths:
                       user:
                         type: string
                         default: user@user.com
-        '400':
-          $ref: '#/components/responses/400'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '500':
-          $ref: '#/components/responses/500'
+        "400":
+          $ref: "#/components/responses/400"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
+
+  /workout:
+    get:
+      summary: Get workout summary
+      tags:
+        - Workout
+      description: Returns a summary of workout data including color-coded client counts.
+      responses:
+        "200":
+          description: Workout summary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        week:
+                          type: string
+                          example: 20Feb-26Feb-2023
+                        greenClients:
+                          type: integer
+                          example: 7
+                        yellowClients:
+                          type: integer
+                          example: 3
+                        redClients:
+                          type: integer
+                          example: 3
+                        coachWiseClients:
+                          type: object
+                          example:
+                            Sanika:
+                              greenClients: 1
+                              yellowClients: 0
+                              redClients: 0
 
   /workout/aerobic:
     get:
@@ -302,7 +344,7 @@ paths:
       tags:
         - Workout
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
@@ -407,16 +449,16 @@ paths:
                         - type: "curved treadmill"
                           gif: "https://i.gifer.com/OyUN.gif"
                 success: true
-        '400':
-          $ref: '#/components/responses/400'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '500':
-          $ref: '#/components/responses/500'
+        "400":
+          $ref: "#/components/responses/400"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
 
   /workout/aerobic/score:
     post:
@@ -463,7 +505,7 @@ paths:
                   description: Equipment used for workout
                   example: "bike"
       responses:
-        '200':
+        "200":
           description: Score submitted successfully
           content:
             application/json:
@@ -476,12 +518,12 @@ paths:
                   success:
                     type: boolean
                     example: true
-        '400':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '500':
-          $ref: '#/components/responses/500'
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
 
   /workout/hyper/theme:
     get:
@@ -498,7 +540,7 @@ paths:
           description: Member's unique code
           example: PUP6223
       responses:
-        '200':
+        "200":
           description: List of available workout themes
           content:
             application/json:
@@ -513,18 +555,18 @@ paths:
                   success:
                     type: boolean
                     example: true
-        '400':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '500':
-          $ref: '#/components/responses/500'
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
 
   /insights/weekly-activity-list:
     get:
       summary: Get Weekly Activity List
       tags:
-        - Insights      
+        - Insights
       description: Returns a list of activities for the given member code.
       parameters:
         - name: memberCode
@@ -534,7 +576,7 @@ paths:
             type: string
           example: PRAN
       responses:
-        '200':
+        "200":
           description: List of weekly activities
           content:
             application/json:
@@ -557,11 +599,69 @@ paths:
                           items:
                             type: string
 
+  /insights/weekly-active-memberships:
+    get:
+      summary: Get weekly active memberships
+      tags:
+        - Insights
+      description: Returns the count of active memberships for each week.
+      responses:
+        "200":
+          description: List of weekly active memberships
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        week:
+                          type: string
+                          example: 20Feb-26Feb-2023
+                        count:
+                          type: integer
+                          example: 0
+
+  /insights/weekly-active-clients:
+    get:
+      summary: Get weekly active clients
+      tags:
+        - Insights
+      description: Returns the count of active clients for each week.
+      responses:
+        "200":
+          description: List of weekly active clients
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        week:
+                          type: string
+                          example: 20Feb-26Feb-2023
+                        count:
+                          type: integer
+                          example: 13
+
   /lifestyle:
     get:
       summary: Get Lifestyle Details
       tags:
-        - Lifestyle      
+        - Lifestyle
       description: Fetches the lifestyle details of a user.
       parameters:
         - name: user
@@ -571,7 +671,7 @@ paths:
             type: string
           example: PRAN
       responses:
-        '200':
+        "200":
           description: Lifestyle details
           content:
             application/json:
@@ -636,10 +736,9 @@ paths:
             type: string
           example: PRAN
       responses:
-        '200':
+        "200":
           description: Weekly check-in data
           content:
-           
             application/json:
               schema:
                 type: object
@@ -680,7 +779,7 @@ paths:
                                   date:
                                     type: string
                                     format: date
-                                    example: 2024-11-11 
+                                    example: 2024-11-11
 
   /client/profile/coach-tools:
     get:
@@ -696,7 +795,7 @@ paths:
             type: string
           description: The unique code for the member
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
@@ -722,99 +821,3 @@ paths:
                         type: string
                         example: "https://storage.googleapis.com/otm_client_profile_pictures/PRAN_Pranav_Yadav_2969.jpg"
                       # Other fields omitted for brevity
-
-  /insights/weekly-active-memberships:
-    get:
-      summary: Get weekly active memberships
-      tags:
-        - Insights
-      description: Returns the count of active memberships for each week.
-      responses:
-        '200':
-          description: List of weekly active memberships
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        week:
-                          type: string
-                          example: 20Feb-26Feb-2023
-                        count:
-                          type: integer
-                          example: 0
-
-  /insights/weekly-active-clients:
-    get:
-      summary: Get weekly active clients
-      description: Returns the count of active clients for each week.
-      responses:
-        '200':
-          description: List of weekly active clients
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        week:
-                          type: string
-                          example: 20Feb-26Feb-2023
-                        count:
-                          type: integer
-                          example: 13
-
-  /workout:
-    get:
-      summary: Get workout summary
-      description: Returns a summary of workout data including color-coded client counts.
-      responses:
-        '200':
-          description: Workout summary
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        week:
-                          type: string
-                          example: 20Feb-26Feb-2023
-                        greenClients:
-                          type: integer
-                          example: 7
-                        yellowClients:
-                          type: integer
-                          example: 3
-                        redClients:
-                          type: integer
-                          example: 3
-                        coachWiseClients:
-                          type: object
-                          example:
-                            Sanika:
-                              greenClients: 1
-                              yellowClients: 0
-                              redClients: 0
