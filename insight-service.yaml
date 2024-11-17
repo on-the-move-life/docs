@@ -165,6 +165,8 @@ paths:
   /client/active:
     get:
       summary: Get active clients
+      tags:
+        - Client
       description: Returns a list of active clients with their details.
       responses:
         "200":
@@ -192,6 +194,8 @@ paths:
   /client/coachMember:
     get:
       summary: Get coach member details
+      tags:
+        - Client
       description: Returns the details of a coach member based on the provided code.
       parameters:
         - in: query
@@ -361,6 +365,8 @@ paths:
 
     put:
       summary: Update coach member details
+      tags:
+        - Client
       description: Updates the details of a coach member with the provided data.
       requestBody:
         required: true
