@@ -523,6 +523,8 @@ paths:
   /insights/weekly-activity-list:
     get:
       summary: Get Weekly Activity List
+      tags:
+        - Insights      
       description: Returns a list of activities for the given member code.
       parameters:
         - name: memberCode
@@ -558,6 +560,8 @@ paths:
   /lifestyle:
     get:
       summary: Get Lifestyle Details
+      tags:
+        - Lifestyle      
       description: Fetches the lifestyle details of a user.
       parameters:
         - name: user
@@ -621,6 +625,8 @@ paths:
   /weekly-checkin:
     get:
       summary: Get Weekly Check-in
+      tags:
+        - Lifestyle
       description: Retrieves weekly check-in data for a specific member.
       parameters:
         - name: memberCode
@@ -679,6 +685,8 @@ paths:
   /client/profile/coach-tools:
     get:
       summary: Get coach tools profile
+      tags:
+        - Coach Tools
       description: Fetches the profile data of a coach member using the provided member code.
       parameters:
         - in: query
@@ -718,6 +726,8 @@ paths:
   /insights/weekly-active-memberships:
     get:
       summary: Get weekly active memberships
+      tags:
+        - Insights
       description: Returns the count of active memberships for each week.
       responses:
         '200':
