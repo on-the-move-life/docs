@@ -417,3 +417,107 @@ paths:
           $ref: '#/components/responses/401'
         '500':
           $ref: '#/components/responses/500'
+
+  /workout/aerobic/score:
+    post:
+      summary: Submit aerobic workout score
+      tags:
+        - Workout
+      description: Submit a completed aerobic workout score with details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - memberCode
+                - duration
+                - calorie
+                - distance
+                - version
+                - equipment
+              properties:
+                memberCode:
+                  type: string
+                  example: "KU"
+                duration:
+                  type: integer
+                  description: Duration in minutes
+                  example: 40
+                calorie:
+                  type: integer
+                  description: Calories burned
+                  example: 1550
+                distance:
+                  type: number
+                  format: float
+                  description: Distance covered in kilometers/miles
+                  example: 2
+                version:
+                  type: string
+                  description: Type of workout performed
+                  example: "cardio_intervals"
+                equipment:
+                  type: string
+                  description: Equipment used for workout
+                  example: "bike"
+      responses:
+        '200':
+          description: Score submitted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "successfully submitted aerobic workout"
+                  success:
+                    type: boolean
+                    example: true
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /workout/hyper/theme:
+    get:
+      summary: Get workout theme list
+      tags:
+        - Workout
+      description: Retrieve available workout themes for customization
+      parameters:
+        - name: memberCode
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Member's unique code
+          example: PUP6223
+      responses:
+        '200':
+          description: List of available workout themes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: array
+                    items:
+                      type: string
+                    example: ["Pull", "Squat", "Push"]
+                  success:
+                    type: boolean
+                    example: true
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+
+
