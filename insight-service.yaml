@@ -439,3 +439,88 @@ paths:
                   success:
                     type: boolean
                     example: true
+
+  /client/churned-members:
+    get:
+      summary: Get churned members
+      tags:
+        - Client
+      description: Returns a list of churned members with their details.
+      responses:
+        "200":
+          description: A list of churned members
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: aaka
+                    email:
+                      type: string
+                      example: churned1@mail.com
+                    code:
+                      type: string
+                      example: AA8684
+
+  /client/add-member:
+    post:
+      summary: Add a new member
+      tags:
+        - Client
+      description: Adds a new member with the provided data.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                batch:
+                  type: string
+                  example: HYPER
+                code:
+                  type: string
+                  example: TEUSER3526
+      responses:
+        "200":
+          description: Successful addition
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+
+    /client:
+      delete:
+        summary: Delete a client
+        tags:
+          - Client
+        description: Deletes a client based on the provided code.
+        requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: TEUSER3526
+        responses:
+          "200":
+            description: Successful deletion
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                      example: true
