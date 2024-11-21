@@ -883,7 +883,7 @@ paths:
                         example: "KG"
                       totalWeightLiftedDelta:
                         type: string
-                        example: "less/more"  
+                        example: "less/more"
                       metconIntensity:
                         type: array
                         items:
@@ -956,6 +956,8 @@ paths:
 
     put:
       summary: Submit weekly review questionnaire
+      tags:
+        - Weekly Review
       description: Submit questionnaire responses for a specified member and week.
       requestBody:
         required: true
@@ -1082,3 +1084,59 @@ paths:
                   imgUrl:
                     type: string
                     example: ""
+
+  /weekly-review:
+    get:
+      summary: Get weekly review data
+      tags:
+        - Weekly Review
+      description: Fetches weekly review data for a specified member and week.
+      parameters:
+        - in: query
+          name: memberCode
+          required: true
+          schema:
+            type: string
+          description: The unique code of the member
+          example: KU
+        - in: query
+          name: week
+          required: true
+          schema:
+            type: string
+          description: The week for which the data is being fetched
+          example: 11Nov-17Nov-2024
+      responses:
+        "200":
+          description: Weekly review data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      memberCode:
+                        type: string
+                      week:
+                        type: string
+                      questionnaire:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            code:
+                              type: string
+                            value:
+                              type: array
+                              items:
+                                type: string
+                            description:
+                              type: string
+                      progressImg:
+                        type: string
+                      
