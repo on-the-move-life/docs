@@ -875,12 +875,15 @@ paths:
                       prUnit:
                         type: string
                         example: "KG"
-                      totalWeightLiftedValue:
+                      totalWeightLiftedDeltaValue:
                         type: integer
                         example: 500
-                      totalWeightLiftedUnit:
+                      totalWeightLiftedDeltaUnit:
                         type: string
                         example: "KG"
+                      totalWeightLiftedDelta:
+                        type: string
+                        example: "less/more"  
                       metconIntensity:
                         type: array
                         items:
