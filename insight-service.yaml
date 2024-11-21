@@ -497,23 +497,23 @@ paths:
                     type: boolean
                     example: true
 
-    /client:
-      delete:
-        summary: Delete a client
-        tags:
-          - Client
-        description: Deletes a client based on the provided code.
-        requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                code:
-                  type: string
-                  example: TEUSER3526
-        responses:
+  /client:
+    delete:
+      summary: Delete a client
+      tags:
+        - Client
+      description: Deletes a client based on the provided code.
+      requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+                example: TEUSER3526
+      responses:
           "200":
             description: Successful deletion
             content:

@@ -821,3 +821,261 @@ paths:
                         type: string
                         example: "https://storage.googleapis.com/otm_client_profile_pictures/PRAN_Pranav_Yadav_2969.jpg"
                       # Other fields omitted for brevity
+
+  /weekly-review/stats:
+    get:
+      summary: Get weekly review stats
+      tags:
+        - Weekly Review
+      description: Fetches weekly review statistics for a member.
+      parameters:
+        - in: query
+          name: memberCode
+          required: true
+          schema:
+            type: string
+          description: The unique member code.
+      responses:
+        "200":
+          description: Weekly review stats response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  msg:
+                    type: string
+                    example: "fetched weekly stats"
+                  data:
+                    type: object
+                    properties:
+                      week:
+                        type: string
+                        example: "11Nov-17Nov-2024"
+                      last8WeekConsistency:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            week:
+                              type: string
+                              example: "18Nov-24Nov-2024"
+                            count:
+                              type: integer
+                              example: 0
+                      volume:
+                        type: integer
+                        example: 200
+                      prValue:
+                        type: integer
+                        example: 123
+                      prUnit:
+                        type: string
+                        example: "KG"
+                      totalWeightLiftedValue:
+                        type: integer
+                        example: 500
+                      totalWeightLiftedUnit:
+                        type: string
+                        example: "KG"
+                      metconIntensity:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            date:
+                              type: string
+                              example: "11 Nov 2024"
+                            intensity:
+                              type: integer
+                              example: 123
+
+  /weekly-review/questionnaire:
+    get:
+      summary: Get weekly review questionnaire
+      tags:
+        - Weekly Review
+      description: Fetches the weekly review questionnaire.
+      responses:
+        "200":
+          description: Weekly review questionnaire
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  msg:
+                    type: string
+                    example: "successfully fetched questions"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: "WKR1"
+                        content:
+                          type: string
+                          example: "How would you rate your workout performance this week?"
+                        description:
+                          type: string
+                          example: "How would you rate your workout performance this week?"
+                        inputType:
+                          type: string
+                          example: "singleChoice"
+                        rank:
+                          type: string
+                          example: "1"
+                        screen:
+                          type: string
+                          example: "1"
+                        target:
+                          type: string
+                          example: "fullPerf"
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: "EXCELLENT"
+                              value:
+                                type: string
+                                example: "Excellent"
+
+    put:
+      summary: Submit weekly review questionnaire
+      description: Submit questionnaire responses for a specified member and week.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                memberCode:
+                  type: string
+                  example: KU
+                week:
+                  type: string
+                  example: 11Nov-17Nov-2024
+                response:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: WKR1
+                      value:
+                        type: array
+                        items:
+                          type: string
+                        example: ["EXCELLENT"]
+                      description:
+                        type: string
+                        example: ""
+      responses:
+        "200":
+          description: Successfully submitted questionnaire
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  msg:
+                    type: string
+                    example: Successfully submitted questionnaire
+
+  /weekly-review/nutritional-info:
+    get:
+      summary: Get nutritional information
+      tags:
+        - Weekly Review
+      description: Fetch static nutritional information for weekly reviews.
+      responses:
+        "200":
+          description: Nutritional information retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  msg:
+                    type: string
+                    example: successfully fetched nutritional information
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        header:
+                          type: string
+                          example: LoremIpsum
+                        description:
+                          type: string
+                          example: LoremIpsum ista jndsjdn djs
+
+  /weekly-review/progress-img:
+    post:
+      summary: Upload progress image
+      tags:
+        - Weekly Review
+      description: Uploads a progress image for the specified member and week.
+      parameters:
+        - in: query
+          name: memberCode
+          required: true
+          schema:
+            type: string
+          description: The unique code of the member
+          example: KU
+        - in: query
+          name: week
+          required: true
+          schema:
+            type: string
+          description: The week for which the image is being uploaded
+          example: 11Nov-17Nov-2024
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: The image file to upload
+      responses:
+        "200":
+          description: Successful image upload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  msg:
+                    type: string
+                    example: Successfully upload image
+                  imgUrl:
+                    type: string
+                    example: ""
