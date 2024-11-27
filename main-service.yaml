@@ -1073,9 +1073,11 @@ paths:
                   msg:
                     type: string
                     example: Successfully upload image
-                  imgUrl:
-                    type: string
-                    example: ""
+                  data:
+                    type: array
+                    items:
+                      type: string
+                    example: ['url1', 'url2']
 
   /weekly-review:
     get:
