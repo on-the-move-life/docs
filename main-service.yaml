@@ -850,43 +850,45 @@ paths:
                     type: string
                     example: "fetched weekly stats"
                   data:
-                    type: object
-                    properties:
-                      week:
-                        type: string
-                        example: "11Nov-17Nov-2024"
-                      last8WeekConsistency:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            week:
-                              type: string
-                              example: "18Nov-24Nov-2024"
-                            count:
-                              type: integer
-                              example: 0
-                      volume:
-                        type: integer
-                        example: 200
-                      prValue:
-                        type: integer
-                        example: 123
-                      # prUnit:
-                      #   type: string
-                      #   example: "KG"
-                      totalWeightLiftedThisWeek:
-                        type: integer
-                        example: 500
-                      totalWeightLiftedLastWeek:
-                        type: integer
-                        example: 400
-                      totalWeightLiftedUnit:
-                        type: string
-                        example: "KG"                        
-                      metconIntensity:
-                        type: integer
-                        example: 110
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        week:
+                          type: string
+                          example: "11Nov-17Nov-2024"
+                        last8WeekConsistency:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              week:
+                                type: string
+                                example: "18Nov-24Nov-2024"
+                              count:
+                                type: integer
+                                example: 0
+                        volume:
+                          type: integer
+                          example: 200
+                        prValue:
+                          type: integer
+                          example: 123
+                        # prUnit:
+                        #   type: string
+                        #   example: "KG"
+                        totalWeightLiftedThisWeek:
+                          type: integer
+                          example: 500
+                        totalWeightLiftedLastWeek:
+                          type: integer
+                          example: 400
+                        totalWeightLiftedUnit:
+                          type: string
+                          example: "KG"                        
+                        metconIntensity:
+                          type: integer
+                          example: 110
 
   /weekly-review/questionnaire:
     get:
