@@ -885,16 +885,8 @@ paths:
                         type: string
                         example: "KG"                        
                       metconIntensity:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            date:
-                              type: string
-                              example: "11 Nov 2024"
-                            intensity:
-                              type: integer
-                              example: 123
+                        type: integer
+                        example: 110
 
   /weekly-review/questionnaire:
     get:
