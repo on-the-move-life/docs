@@ -872,9 +872,9 @@ paths:
                       prValue:
                         type: integer
                         example: 123
-                      prUnit:
-                        type: string
-                        example: "KG"
+                      # prUnit:
+                      #   type: string
+                      #   example: "KG"
                       totalWeightLiftedThisWeek:
                         type: integer
                         example: 500
