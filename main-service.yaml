@@ -1127,14 +1127,20 @@ paths:
                           properties:
                             code:
                               type: string
+                              example: WKR1
                             value:
                               type: array
                               items:
                                 type: string
+                              example: ["EXCELLENT"]
                             description:
                               type: string
+                              example: "yo dance"
                       progressImg:
-                        type: string
+                        type: array
+                        items:
+                          type: string
+                        example: ['url1', 'url2']
                       report:
                         type: object
                         properties:
