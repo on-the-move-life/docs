@@ -1135,4 +1135,64 @@ paths:
                               type: string
                       progressImg:
                         type: string
-                      
+                      report:
+                        type: object
+                        properties:
+                          last8WeekConsistency:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                week:
+                                  type: string
+                                count:
+                                  type: integer
+                            example:
+                              - week: "18Nov-24Nov-2024"
+                                count: 0
+                          targetConsistency:
+                            type: integer    
+                            example: 4              
+                          totalWeightLiftedLast8Week:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                week:
+                                  type: string
+                                count:
+                                  type: integer
+                            example:
+                              - week: "18Nov-24Nov-2024"
+                                count: 0
+                          targetDistance:
+                            type: integer
+                            example: 10
+                          last2WeekDistanceWalked:
+                            type: array
+                            items:
+                              type: integer
+                            example: [2, 3]
+                          distanceUnit:
+                            type: string
+                            example: "KM"
+                          nutritionScore:
+                            type: integer
+                            example: 4
+                          moodLevelsThisWeek:
+                            type: integer
+                            example: 4
+                          moodLevelsLastWeek:
+                            type: integer
+                            example: 3
+                          last8WeekWeightHistory:
+                            type: array
+                            items:
+                              type: integer
+                            example: [50, 51, 52, 53, 54, 55, 56, 57]
+                          weightHistoryUnit:
+                            type: string
+                            example: "KG"
+
+
+            
