@@ -885,7 +885,7 @@ paths:
                           example: 400
                         totalWeightLiftedUnit:
                           type: string
-                          example: "KG"                        
+                          example: "KG"
                         metconIntensity:
                           type: integer
                           example: 110
@@ -1079,7 +1079,7 @@ paths:
                     type: array
                     items:
                       type: string
-                    example: ['url1', 'url2']
+                    example: ["url1", "url2"]
 
   /weekly-review:
     get:
@@ -1136,11 +1136,6 @@ paths:
                             description:
                               type: string
                               example: "yo dance"
-                      progressImg:
-                        type: array
-                        items:
-                          type: string
-                        example: ['url1', 'url2']
                       report:
                         type: object
                         properties:
@@ -1157,8 +1152,8 @@ paths:
                               - week: "18Nov-24Nov-2024"
                                 count: 0
                           targetConsistency:
-                            type: integer    
-                            example: 4              
+                            type: integer
+                            example: 4
                           totalWeightLiftedLast8Week:
                             type: array
                             items:
@@ -1171,34 +1166,66 @@ paths:
                             example:
                               - week: "18Nov-24Nov-2024"
                                 count: 0
-                          targetDistance:
+                          targetStepCount:
                             type: integer
-                            example: 10
-                          last2WeekDistanceWalked:
+                            example: 10000
+                          last2WeekStepCount:
                             type: array
                             items:
-                              type: integer
-                            example: [2, 3]
-                          distanceUnit:
-                            type: string
-                            example: "KM"
-                          nutritionScore:
+                              type: object
+                              properties:
+                                week:
+                                  type: string
+                                count:
+                                  type: integer
+                            example:
+                              - week: "18Nov-24Nov-2024"
+                                count: 0
+
+                          nutritionRatingThisWeek:
                             type: integer
                             example: 4
-                          moodLevelsThisWeek:
+                          nutritionRatingLastWeek:
                             type: integer
                             example: 4
-                          moodLevelsLastWeek:
+                          energyLevelsThisWeek:
+                            type: integer
+                            example: 3
+                          energyLevelsLastWeek:
+                            type: integer
+                            example: 3
+                          sleepQualityThisWeek:
+                            type: integer
+                            example: 3
+                          sleepQualityLastWeek:
+                            type: integer
+                            example: 3
+                          stressLevelsThisWeek:
+                            type: integer
+                            example: 3
+                          stressLevelsLastWeek:
                             type: integer
                             example: 3
                           last8WeekWeightHistory:
                             type: array
                             items:
-                              type: integer
-                            example: [50, 51, 52, 53, 54, 55, 56, 57]
-                          weightHistoryUnit:
+                              type: object
+                              properties:
+                                week:
+                                  type: string
+                                  example: "18Nov-24Nov-2024"
+                                count:
+                                  type: integer
+                                  example: 98
+                          weightUnit:
                             type: string
                             example: "KG"
-
-
-            
+                          perfectWeek:
+                            type: object
+                            properties:
+                              isPerfectWeek:
+                                type: boolean
+                                example: true
+                              streak:
+                                type: integer
+                                example: 5
