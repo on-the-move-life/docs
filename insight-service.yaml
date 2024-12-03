@@ -524,3 +524,163 @@ paths:
                     success:
                       type: boolean
                       example: true
+
+  /client/home:
+    get:
+      summary: Get Client home page data
+      tags:
+        - Client
+      description: Returns the data for the home page.
+      responses:
+        "200":
+          description: Home page data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: Pranav Yadav
+                  code:
+                    type: string
+                    example: PRAN
+                  frequency:
+                    type: integer
+                    example: 5
+                  totalPerfectWeeks:
+                    type: integer
+                    example: 43
+                  streak:
+                    type: integer
+                    example: 1
+                  totalWorkoutsDone:
+                    type: integer
+                    example: 839
+                  score:
+                    type: number
+                    example: 3.5
+                  consistency:
+                    type: integer
+                    example: 9
+                  fitnessPercentileScore:
+                    type: integer
+                    example: 61
+                  lastEightWeeksWorkout:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        week:
+                          type: string
+                          example: 2Dec-8Dec
+                        count:
+                          type: integer
+                          example: 9
+                  isPaymentDue:
+                    type: boolean
+                    example: false
+                  isLegend:
+                    type: boolean
+                    example: false
+                  lastSeenUiVersion:
+                    type: string
+                    example: 1.1.1
+                  consistencyTrend:
+                    type: string
+                    example: decreasing
+                  hyperWorkoutParams:
+                    type: object
+                    properties:
+                      theme:
+                        type: string
+                        example: Horizontal Pull
+                      duration:
+                        type: integer
+                        example: 95
+                      calories:
+                        type: integer
+                        example: 550
+                  flexWorkoutParams:
+                    type: object
+                    properties:
+                      theme:
+                        type: string
+                        example: Core
+                      duration:
+                        type: integer
+                        example: 15
+                      calories:
+                        type: integer
+                        example: 100
+                  isWeeklyCheckinDone:
+                    type: boolean
+                    example: false
+                  isWeeklyReviewSubmitted:
+                    type: boolean
+                    example: true
+
+  /client/profile:
+    get:
+      summary: Get Client profile data
+      tags:
+        - Client
+      description: Returns the data for the profile page.
+      responses:
+        "200":
+          description: Profile page data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  avgIntensity:
+                    type: number
+                    example: 44.6
+                  consistency:
+                    type: integer
+                    example: 0
+                  isPaymentDue:
+                    type: boolean
+                    example: false
+                  paymentDueDate:
+                    type: string
+                    example: 2021-12-31
+                  moveCoins:
+                    type: integer
+                    example: 990
+                  offers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          example: 66669dd784428576b5286fe1
+                        requiredMovecoins:
+                          type: integer
+                          example: 4000
+                        type:
+                          type: string
+                          example: discount
+                        description:
+                          type: string
+                          example: 20% off on next subscription
+                        value:
+                          type: string
+                          example: -20%
+                        active:
+                          type: boolean
+                          example: true
+                        isAvailable:
+                          type: boolean
+                          example: false
+                        availabilityStatus:
+                          type: string
+                          example: Earn 3010 more MoveCoins to unlock
+                  isLegend:
+                    type: boolean
+                    example: false
+                  isWeeklyReviewSubmitted:
+                    type: boolean
+                    example: false

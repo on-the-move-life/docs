@@ -1120,7 +1120,7 @@ paths:
                         type: string
                       week:
                         type: string
-                      questionnaire:
+                      response:
                         type: array
                         items:
                           type: object
@@ -1139,73 +1139,45 @@ paths:
                       report:
                         type: object
                         properties:
-                          last8WeekConsistency:
+                          last4WeekConsistency:
                             type: array
                             items:
                               type: object
                               properties:
                                 week:
                                   type: string
-                                count:
+                                  example: "25Nov-1Dec-2024"
+                                steps:
                                   type: integer
-                            example:
-                              - week: "18Nov-24Nov-2024"
-                                count: 0
+                                  example: 0
                           targetConsistency:
                             type: integer
-                            example: 4
-                          totalWeightLiftedLast8Week:
+                            example: 5
+                          last4WeekStepCount:
                             type: array
                             items:
                               type: object
                               properties:
                                 week:
                                   type: string
-                                count:
+                                  example: "25Nov-1Dec-2024"
+                                steps:
                                   type: integer
-                            example:
-                              - week: "18Nov-24Nov-2024"
-                                count: 0
+                                  example: 0
                           targetStepCount:
                             type: integer
                             example: 10000
-                          last2WeekStepCount:
+                          last8WeekWeightLifted:
                             type: array
                             items:
                               type: object
                               properties:
                                 week:
                                   type: string
-                                count:
+                                  example: "25Nov-1Dec-2024"
+                                totalWeightLifted:
                                   type: integer
-                            example:
-                              - week: "18Nov-24Nov-2024"
-                                count: 0
-
-                          nutritionRatingThisWeek:
-                            type: integer
-                            example: 4
-                          nutritionRatingLastWeek:
-                            type: integer
-                            example: 4
-                          energyLevelsThisWeek:
-                            type: integer
-                            example: 3
-                          energyLevelsLastWeek:
-                            type: integer
-                            example: 3
-                          sleepQualityThisWeek:
-                            type: integer
-                            example: 3
-                          sleepQualityLastWeek:
-                            type: integer
-                            example: 3
-                          stressLevelsThisWeek:
-                            type: integer
-                            example: 3
-                          stressLevelsLastWeek:
-                            type: integer
-                            example: 3
+                                  example: 0
                           last8WeekWeightHistory:
                             type: array
                             items:
@@ -1213,19 +1185,164 @@ paths:
                               properties:
                                 week:
                                   type: string
-                                  example: "18Nov-24Nov-2024"
-                                count:
+                                  example: "25Nov-1Dec-2024"
+                                weight:
                                   type: integer
-                                  example: 98
+                                  example: 0
                           weightUnit:
                             type: string
                             example: "KG"
+                          nutritionRatingThisWeek:
+                            type: integer
+                            example: 5
+                          nutritionRatingLastWeek:
+                            type: integer
+                            example: 0
+                          energyLevelThisWeek:
+                            type: integer
+                            example: 5
+                          energyLevelLastWeek:
+                            type: integer
+                            example: 0
+                          stressLevelsThisWeek:
+                            type: integer
+                            example: 3
+                          stressLevelsLastWeek:
+                            type: integer
+                            example: 0
+                          sleepQualityThisWeek:
+                            type: integer
+                            example: 0
+                          sleepQualityLastWeek:
+                            type: integer
+                            example: 0
                           perfectWeek:
                             type: object
                             properties:
-                              isPerfectWeek:
-                                type: boolean
-                                example: true
                               streak:
                                 type: integer
-                                example: 5
+                                example: 0
+                              isPerfectWeek:
+                                type: boolean
+                                example: false
+
+  /onboarding/questionairre:
+    get:
+      summary: Get onboarding questionairre
+      tags:
+        - Onboarding
+      description: Fetches the onboarding questionnaire data.
+      responses:
+        "200":
+          description: Onboarding questionnaire data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: "OBQ1"
+                        content:
+                          type: string
+                          example: "How would you rate your workout performance this week?"
+                        description:
+                          type: string
+                          example: "How would you rate your workout performance this week?"
+                        inputType:
+                          type: string
+                          example: "singleChoice"
+                        rank:
+                          type: string
+                          example: "1"
+                        screen:
+                          type: string
+                          example: "1"
+                        target:
+                          type: string
+                          example: "fullPerf"
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: "EXCELLEENT"
+                              value:
+                                type: string
+                                example: "Excellent"
+
+    put:
+      summary: Submit onboarding questionairre
+      tags:
+        - Onboarding
+      description: Submit questionnaire responses for a specified member.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                memberCode:
+                  type: string
+                  example: KU
+                response:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: OBQ1
+                      value:
+                        type: array
+                        items:
+                          type: string
+                        example: ["EXCELLENT"]
+                      description:
+                        type: string
+                        example: ""
+      responses:
+        "200":
+          description: Successfully submitted questionnaire
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  msg:
+                    type: string
+                    example: Successfully submitted questionnaire
+                  data:
+                    type: object
+                    properties:
+                      fitnessScore:
+                        type: double
+                        example: 7.2
+                      fitnessLevel:
+                        type: string
+                        example: "Intermediate"
+                      fitnessPercentile:
+                        type: double
+                        example: 70.0
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
+
+    
