@@ -1178,7 +1178,7 @@ paths:
                                 totalWeightLifted:
                                   type: integer
                                   example: 0
-                          last8WeekWeightHistory:
+                          userLast8WeekWeightHistory:
                             type: array
                             items:
                               type: object
