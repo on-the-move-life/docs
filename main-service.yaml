@@ -1269,6 +1269,12 @@ paths:
                         target:
                           type: string
                           example: "fullPerf"
+                        section:
+                          type: string
+                          example: "Fitness"
+                        sectionDescription:
+                          type: string
+                          example: "Take this quick fitness test for us to gauge your fitness levels perfectly"
                         options:
                           type: array
                           items:
@@ -1338,11 +1344,33 @@ paths:
                       fitnessPercentile:
                         type: double
                         example: 70.0
+                      calories:
+                        type: integer
+                        example: 2000
+                      meals:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            calories:
+                              type: integer
+                            description:
+                              type: string
+                            nutrients:
+                              type: object
+                              properties:
+                                protein:
+                                  type: integer
+                                carbs:
+                                  type: integer
+                                fats:
+                                  type: integer
+
         "400":
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
         "500":
           $ref: "#/components/responses/500"
-
-    
