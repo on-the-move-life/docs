@@ -562,6 +562,44 @@ paths:
         "500":
           $ref: "#/components/responses/500"
 
+  /workout/weekly-plan:
+    post:
+      summary: Create weekly workout plan
+      tags:
+        - Workout
+      description: Create a weekly workout plan for a member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - memberCode
+                - plan
+              properties:
+                memberCode:
+                  type: string
+                  example: "KU"
+                plan:
+                  type: object
+                  properties:
+                    level:
+                      type: string
+                      example: "Intermediate"
+                    workout:
+                      type: number
+                      example: 3
+                    aerobic:
+                      type: number
+                      example: 2
+                    stretch:
+                      type: number
+                      example: 1
+                    walk:
+                      type: number
+                      example: 1
+
   /insights/weekly-activity-list:
     get:
       summary: Get Weekly Activity List
