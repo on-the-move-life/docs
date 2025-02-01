@@ -1413,7 +1413,7 @@ paths:
         "500":
           $ref: "#/components/responses/500"
 
-  /onboarding/questionairre/response:
+  /onboarding/response:
     get:
       summary: Get onboarding questionairre responses
       tags:
@@ -1438,19 +1438,23 @@ paths:
                   success:
                     type: boolean
                     example: true
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          example: "OBQ1"
-                        value:
-                          type: array
-                          items:
+                  msg:
+                    memberCode:
+                      type: string
+                      example: "KU"
+                    response:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
                             type: string
-                          example: ["EXCELLENT"]
+                            example: "OBQ1"
+                          value:
+                            type: array
+                            items:
+                              type: string
+                            example: ["EXCELLENT"]
 
   /onboarding/retry:
     post:
