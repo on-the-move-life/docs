@@ -1412,3 +1412,76 @@ paths:
           $ref: "#/components/responses/401"
         "500":
           $ref: "#/components/responses/500"
+
+  /onboarding/questionairre/response:
+    get:
+      summary: Get onboarding questionairre responses
+      tags:
+        - Onboarding
+      description: Fetches the onboarding questionnaire data.
+      parameters:
+        - name: memberCode
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Member's unique code
+          example: PUP6223
+      responses:
+        "200":
+          description: Onboarding questionnaire data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: "OBQ1"
+                        value:
+                          type: array
+                          items:
+                            type: string
+                          example: ["EXCELLENT"]
+
+  /onboarding/retry:
+    post:
+      summary: Retry onboarding
+      tags:
+        - Onboarding
+      description: Retry the onboarding process for a member.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                memberCode:
+                  type: string
+                  example: KU
+                section:
+                  type: string
+                  example: "nutrition"
+      responses:
+        "200":
+          description: Onboarding process retried successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  msg:
+                    type: string
+                    example: "Onboarding process retried successfully"
